@@ -11,5 +11,5 @@ mongoose.connect(process.env.MONGO)
 });
 const app=express();
 app.listen(3000,()=>{
-    console.log("server learning on port 3000");
+    console.log("server learning to the port 3000");
 })
