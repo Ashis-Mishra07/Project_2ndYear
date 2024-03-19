@@ -166,7 +166,7 @@ export default function CreateListing() {
                         className='border p-3 rounded-lg'
                         id='name'
                         maxLength='62'
-                        minLength='10'
+                        minLength='5'
                         required
                         onChange={handleChange}
                         value={formData.name}
@@ -247,7 +247,7 @@ export default function CreateListing() {
                                 type='number'
                                 id='bedrooms'
                                 min='1'
-                                max='10'
+                                max='10000'
                                 required
                                 className='p-3 border border-gray-300 rounded-lg'
                                 onChange={handleChange}
@@ -260,7 +260,7 @@ export default function CreateListing() {
                                 type='number'
                                 id='bathrooms'
                                 min='1'
-                                max='10'
+                                max='10000'
                                 required
                                 className='p-3 border border-gray-300 rounded-lg'
                                 onChange={handleChange}
