@@ -7,8 +7,8 @@ import {
     uploadBytesResumable,
 } from 'firebase/storage';
 import { app } from '../firebase';
-import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure,deleteUserStart,deleteUserSuccess, signOutUserStart } from '../redux/user/userSlice';
-import {Link} from 'react-router-dom';
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserStart } from '../redux/user/userSlice';
+import { Link } from 'react-router-dom';
 
 export default function Profile() {
     const fileRef = useRef(null);
@@ -85,8 +85,8 @@ export default function Profile() {
         }
     };
 
-    const handleDeleteUser = async()=>{
-        try{
+    const handleDeleteUser = async () => {
+        try {
             dispatch(deleteUserStart());
             const res = await fetch(`/api/user/delete/${currentUser._id}`, {
                 method: 'DELETE',
@@ -99,22 +99,22 @@ export default function Profile() {
 
             dispatch(deleteUserSuccess(data));
         }
-        catch(err){
+        catch (err) {
             dispatch(deleteUserFailure(error.message));
         }
     }
 
-    const handleSignOut=async()=>{
+    const handleSignOut = async () => {
         try {
             dispatch(signOutUserStart());
-            const res=await fetch('/api/auth/signout');
-            const data=await res.json();
-            if(data.success===false){
+            const res = await fetch('/api/auth/signout');
+            const data = await res.json();
+            if (data.success === false) {
                 dispatch(deleteUserFailure(data.message));
                 return;
             }
             dispatch(deleteUserSuccess(data));
-        } 
+        }
         catch (error) {
             dispatch(deleteUserFailure(error.message));
         }
@@ -126,7 +126,7 @@ export default function Profile() {
             <form onSubmit={handleSubmit} className='flex flex-col gap-3.5' >
                 <input type="file" onChange={(e) => setFile(e.target.files[0])} ref={fileRef} hidden accept='image/*' />
                 <img onClick={() => fileRef.current.click()} src={formData.avatar || currentUser.avatar} alt="profile" className='rounded-full
-                 h-40 w-40 object-cover  cursor-pointer self-center mt-1' />
+                 h-28 w-28 object-cover  cursor-pointer self-center mt-1' />
 
                 <p className='text-lg self-center '>
                     {fileUploadError ? (
@@ -149,7 +149,7 @@ export default function Profile() {
                 <button disabled={loading} className='bg-slate-700 text-white rounded-lg p-3
                  uppercase hover:opacity-95 disabled:opacity-80'>{loading ? 'Loading...' : 'Update'}</button>
 
-                 <Link className='bg-green-700 p-3 rounded-lg text-center text-white uppercase
+                <Link className='bg-green-700 p-3 rounded-lg text-center text-white uppercase
                  hover:opacity-90' to={"/create-listing"}> Create Listing</Link>
 
             </form>
