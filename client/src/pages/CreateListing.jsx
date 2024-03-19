@@ -218,7 +218,7 @@ export default function CreateListing() {
                                 onChange={handleChange}
                                 checked={formData.parking}
                             />
-                            <span>Cattles</span>
+                            <span>Spot Available</span>
                         </div>
                         <div className='flex gap-2'>
                             <input
@@ -228,7 +228,7 @@ export default function CreateListing() {
                                 onChange={handleChange}
                                 checked={formData.furnished}
                             />
-                            <span>Dogs</span>
+                            <span>24/7 Service</span>
                         </div>
                         <div className='flex gap-2'>
                             <input
