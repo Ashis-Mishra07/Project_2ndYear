@@ -19,10 +19,10 @@ export default function CreateListing() {
         description: '',
         address: '',
         type: 'rent',
-        bedrooms: 1,
-        bathrooms: 1,
-        regularPrice: 50,
-        discountPrice: 0,
+        bedrooms: 0,
+        bathrooms: 0,
+        regularPrice: 200,
+        discountPrice: 350,
         offer: false,
         parking: false,
         furnished: false,
@@ -128,8 +128,8 @@ export default function CreateListing() {
         try {
             if (formData.imageUrls.length < 1)
                 return setError('You must upload at least one image');
-            if (+formData.regularPrice < +formData.discountPrice)
-                return setError('Discount price must be lower than regular price');
+            if (+formData.regularPrice > +formData.discountPrice)
+                return setError('Increased price must be greater than regular price');
             setLoading(true);
             setError(false);
             const res = await fetch('/api/listing/create', {
@@ -272,7 +272,7 @@ export default function CreateListing() {
                             <input
                                 type='number'
                                 id='regularPrice'
-                                min='50'
+                                min='200'
                                 max='10000000'
                                 required
                                 className='p-3 border border-gray-300 rounded-lg'
@@ -291,7 +291,7 @@ export default function CreateListing() {
                                 <input
                                     type='number'
                                     id='discountPrice'
-                                    min='0'
+                                    min='350'
                                     max='10000000'
                                     required
                                     className='p-3 border border-gray-300 rounded-lg'
@@ -299,7 +299,7 @@ export default function CreateListing() {
                                     value={formData.discountPrice}
                                 />
                                 <div className='flex flex-col items-center'>
-                                    <p>Discounted price</p>
+                                    <p>Increased price</p>
 
                                     {formData.type === 'rent' && (
                                         <span className='text-xs'>($ / month)</span>
