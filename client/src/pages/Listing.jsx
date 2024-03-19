@@ -13,7 +13,7 @@ import {
     FaShare,
 } from 'react-icons/fa';
 
-
+import Contact from '../components/Contact';
 // https://sabe.io/blog/javascript-format-numbers-commas#:~:text=The%20best%20way%20to%20format,format%20the%20number%20with%20commas.
 
 export default function Listing() {
@@ -114,13 +114,12 @@ export default function Listing() {
                         </p>
                         <ul className='text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6'>
                             <li className='flex items-center gap-1 whitespace-nowrap '>
-                                {/* <FaBed className='text-lg' /> */}
                                 {listing.bedrooms > 1
                                     ? `${listing.bedrooms} Cattles `
                                     : `${listing.bedrooms} Cattle `}
                             </li>
                             <li className='flex items-center gap-1 whitespace-nowrap '>
-                                {/* <FaBath className='text-lg' /> */}
+                                
                                 {listing.bathrooms > 1
                                     ? `${listing.bathrooms} Dogs `
                                     : `${listing.bathrooms} Dog `}
@@ -141,7 +140,8 @@ export default function Listing() {
                             >
                                 Contact landlord
                             </button>
-                        )}
+                         )}
+                        {contact && <Contact listing={listing} />}
                         
                     </div>
                 </div>
