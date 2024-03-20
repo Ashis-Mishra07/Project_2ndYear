@@ -32,10 +32,17 @@ export default function Header() {
                         <span className='text-slate-700'>PAWS</span>
                     </h1>
                 </Link>
-                <form className='bg-slate-100  p-3 rounded-lg flex items-center'>
-                    <input type="text" placeholder='Search..'
-                        className='bg-transparent focus:outline-none w-24 sm:w-64' />
-                    <FaSearch className='text-slate-600' />
+                <form onSubmit={handleSubmit} className='bg-slate-100 p-3 rounded-lg flex items-center' >
+                    <input
+                        type='text'
+                        placeholder='Search...'
+                        className='bg-transparent focus:outline-none w-24 sm:w-64'
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <button>
+                        <FaSearch className='text-slate-600' />
+                    </button>
                 </form>
 
                 <ul className='flex gap-4'>
