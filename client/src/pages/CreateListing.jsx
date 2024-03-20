@@ -19,9 +19,9 @@ export default function CreateListing() {
         description: '',
         address: '',
         type: 'rent',
-        bedrooms: 0,
-        bathrooms: 0,
-        regularPrice: 200,
+        bedrooms: 1,
+        bathrooms: 1,
+        regularPrice: 50,
         discountPrice: 0,
         offer: false,
         parking: false,
@@ -129,7 +129,7 @@ export default function CreateListing() {
             if (formData.imageUrls.length < 1)
                 return setError('You must upload at least one image');
             if (+formData.regularPrice < +formData.discountPrice)
-                return setError('Discounted price must be smaller than regular price');
+                return setError('Discount price must be lower than regular price');
             setLoading(true);
             setError(false);
             const res = await fetch('/api/listing/create', {
@@ -155,7 +155,7 @@ export default function CreateListing() {
     };
     return (
         <main className='p-3 max-w-4xl mx-auto'>
-            <h1 className='text-3xl font-semibold text-center my-7 uppercase underline'>
+            <h1 className='text-3xl font-semibold text-center my-7'>
                 Create a Listing
             </h1>
             <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row gap-4'>
@@ -166,7 +166,7 @@ export default function CreateListing() {
                         className='border p-3 rounded-lg'
                         id='name'
                         maxLength='62'
-                        minLength='5'
+                        minLength='10'
                         required
                         onChange={handleChange}
                         value={formData.name}
@@ -218,7 +218,7 @@ export default function CreateListing() {
                                 onChange={handleChange}
                                 checked={formData.parking}
                             />
-                            <span>Spot Available</span>
+                            <span>Parking spot</span>
                         </div>
                         <div className='flex gap-2'>
                             <input
@@ -228,7 +228,7 @@ export default function CreateListing() {
                                 onChange={handleChange}
                                 checked={formData.furnished}
                             />
-                            <span>24/7 Service</span>
+                            <span>Furnished</span>
                         </div>
                         <div className='flex gap-2'>
                             <input
@@ -247,32 +247,32 @@ export default function CreateListing() {
                                 type='number'
                                 id='bedrooms'
                                 min='1'
-                                max='10000'
+                                max='10'
                                 required
                                 className='p-3 border border-gray-300 rounded-lg'
                                 onChange={handleChange}
                                 value={formData.bedrooms}
                             />
-                            <p>Cattle Count</p>
+                            <p>Beds</p>
                         </div>
                         <div className='flex items-center gap-2'>
                             <input
                                 type='number'
                                 id='bathrooms'
                                 min='1'
-                                max='10000'
+                                max='10'
                                 required
                                 className='p-3 border border-gray-300 rounded-lg'
                                 onChange={handleChange}
                                 value={formData.bathrooms}
                             />
-                            <p>Dogs Count</p>
+                            <p>Baths</p>
                         </div>
                         <div className='flex items-center gap-2'>
                             <input
                                 type='number'
                                 id='regularPrice'
-                                min='200'
+                                min='50'
                                 max='10000000'
                                 required
                                 className='p-3 border border-gray-300 rounded-lg'

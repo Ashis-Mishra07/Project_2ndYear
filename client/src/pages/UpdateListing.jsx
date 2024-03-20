@@ -7,8 +7,7 @@ import {
 } from 'firebase/storage';
 import { app } from '../firebase';
 import { useSelector } from 'react-redux';
-import { useNavigate , useParams } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function CreateListing() {
     const { currentUser } = useSelector((state) => state.user);
@@ -21,9 +20,9 @@ export default function CreateListing() {
         description: '',
         address: '',
         type: 'rent',
-        bedrooms: 0,
-        bathrooms: 0,
-        regularPrice: 200,
+        bedrooms: 1,
+        bathrooms: 1,
+        regularPrice: 50,
         discountPrice: 0,
         offer: false,
         parking: false,
@@ -33,21 +32,21 @@ export default function CreateListing() {
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-    
-    useEffect(()=>{
-        const fetchListing = async() => {
+
+    useEffect(() => {
+        const fetchListing = async () => {
             const listingId = params.listingId;
-            const res= await fetch(`/api/listing/get/${listingId}`);
-            const data= await res.json();
-            if(data.success === false){
+            const res = await fetch(`/api/listing/get/${listingId}`);
+            const data = await res.json();
+            if (data.success === false) {
                 console.log(data.message);
                 return;
             }
             setFormData(data);
-        } 
-        fetchListing();
-    },[]);
+        };
 
+        fetchListing();
+    }, []);
 
     const handleImageSubmit = (e) => {
         if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
@@ -146,7 +145,7 @@ export default function CreateListing() {
             if (formData.imageUrls.length < 1)
                 return setError('You must upload at least one image');
             if (+formData.regularPrice < +formData.discountPrice)
-                return setError('Increased price must be greater than regular price');
+                return setError('Discount price must be lower than regular price');
             setLoading(true);
             setError(false);
             const res = await fetch(`/api/listing/update/${params.listingId}`, {
@@ -172,8 +171,8 @@ export default function CreateListing() {
     };
     return (
         <main className='p-3 max-w-4xl mx-auto'>
-            <h1 className='text-3xl font-semibold text-center my-7 uppercase underline'>
-                Update the Listing
+            <h1 className='text-3xl font-semibold text-center my-7'>
+                Update a Listing
             </h1>
             <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row gap-4'>
                 <div className='flex flex-col gap-4 flex-1'>
@@ -235,7 +234,7 @@ export default function CreateListing() {
                                 onChange={handleChange}
                                 checked={formData.parking}
                             />
-                            <span>Cattles</span>
+                            <span>Parking spot</span>
                         </div>
                         <div className='flex gap-2'>
                             <input
@@ -245,7 +244,7 @@ export default function CreateListing() {
                                 onChange={handleChange}
                                 checked={formData.furnished}
                             />
-                            <span>Dogs</span>
+                            <span>Furnished</span>
                         </div>
                         <div className='flex gap-2'>
                             <input
@@ -270,7 +269,7 @@ export default function CreateListing() {
                                 onChange={handleChange}
                                 value={formData.bedrooms}
                             />
-                            <p>Cattle Count</p>
+                            <p>Beds</p>
                         </div>
                         <div className='flex items-center gap-2'>
                             <input
@@ -283,13 +282,13 @@ export default function CreateListing() {
                                 onChange={handleChange}
                                 value={formData.bathrooms}
                             />
-                            <p>Dogs Count</p>
+                            <p>Baths</p>
                         </div>
                         <div className='flex items-center gap-2'>
                             <input
                                 type='number'
                                 id='regularPrice'
-                                min='200'
+                                min='50'
                                 max='10000000'
                                 required
                                 className='p-3 border border-gray-300 rounded-lg'
@@ -317,7 +316,6 @@ export default function CreateListing() {
                                 />
                                 <div className='flex flex-col items-center'>
                                     <p>Discounted price</p>
-
                                     {formData.type === 'rent' && (
                                         <span className='text-xs'>($ / month)</span>
                                     )}
@@ -378,7 +376,7 @@ export default function CreateListing() {
                         disabled={loading || uploading}
                         className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
                     >
-                        {loading ? 'Creating...' : 'Update listing'}
+                        {loading ? 'Updating...' : 'Update listing'}
                     </button>
                     {error && <p className='text-red-700 text-sm'>{error}</p>}
                 </div>
