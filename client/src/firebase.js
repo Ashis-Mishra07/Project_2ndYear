@@ -13,7 +13,7 @@ const firebaseConfig = {
   storageBucket: "shelterpaws-65d62.appspot.com",
   messagingSenderId: "750638292829",
   appId: "1:750638292829:web:9a7dc77dc79f11ce0c12b4",
-  measurementId: "G-823DLJE477"
+  measurementId: "G-823DLJE477",
 };
 
 // Initialize Firebase
